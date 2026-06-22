@@ -1,10 +1,14 @@
-import { InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 
-
-export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  ({ className, ...props }, ref) => {
     return (
-        <input
-        className={`rounded-md border  px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary ${className}`}
-        {...props} />
-    )
-}
+      <input
+        ref={ref}
+        className={`rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary ${className}`}
+        {...props}
+      />
+    );
+  }
+);
+Input.displayName = "Input";
