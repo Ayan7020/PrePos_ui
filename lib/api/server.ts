@@ -16,7 +16,7 @@ backendClient.interceptors.response.use(
       success: false,
       message: error.message || "We're experiencing temporary technical difficulties. Fix in progress!",
       data: null,
-    };
+    }; 
  
 
     return Promise.reject(errorResponse);
