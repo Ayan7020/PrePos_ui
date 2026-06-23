@@ -14,6 +14,7 @@ import {
   User as UserIcon
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useAuthStore } from "@/lib/store/authStore";
 
 export default function DashboardLayout({
   children,
@@ -22,20 +23,16 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const storeUserEmail = useAuthStore((state) => state.userEmail);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const [userEmail, setUserEmail] = useState<string>("User");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedEmail = localStorage.getItem("userEmail") || "User";
-      setUserEmail(storedEmail);
-    }
-  }, []);
+    setUserEmail(storeUserEmail || "User");
+  }, [storeUserEmail]);
 
   const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userEmail");
-    }
+    clearAuth();
     router.push("/login");
   };
 

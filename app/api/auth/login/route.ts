@@ -8,14 +8,6 @@ export async function POST(req: NextRequest) {
 
     const res = NextResponse.json(response.data);
 
-    // Forward Set-Cookie header if present
-    const cookieHeader = response.headers["set-cookie"];
-    if (cookieHeader) {
-      cookieHeader.forEach((cookie) => {
-        res.headers.append("Set-Cookie", cookie);
-      });
-    }
-
     return res;
   } catch (error: any) {
     return NextResponse.json(error, { status: error.status || 500 });
